@@ -1,0 +1,35 @@
+{
+  "name": "tsoa-workers",
+  "version": "1.0.0",
+  "description": "A add-on for running tsoa on cloudflare workers",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/cjs/index.d.ts",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-esm.json",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markusahlstrand/tsoa-workers.git"
+  },
+  "keywords": [
+    "tsoa",
+    "cloudflare",
+    "workers"
+  ],
+  "author": "Markus Ahlstrand",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/markusahlstrand/tsoa-workers/issues"
+  },
+  "homepage": "https://github.com/markusahlstrand/tsoa-workers#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}

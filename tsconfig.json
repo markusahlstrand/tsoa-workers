@@ -1,19 +1,14 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "display": "Node 16",
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "lib": [
-            "es2021"
-        ],
-        "module": "commonjs",
-        "target": "es2021",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node",
-        "outDir": "build",
-        "resolveJsonModule": true
-    }
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "commonjs",
+    "declaration": true,
+    // "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./lib/cjs"
+  },
+  "include": ["./src"]
 }

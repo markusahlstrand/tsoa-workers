@@ -10,3 +10,5 @@ node_modules/
 .cargo-ok
 .env
 .vercel
+build/
+lib/
