@@ -11,11 +11,16 @@ export function Body() {
  *
  * @param {string} [name] The name of the body parameter
  */
-export declare function BodyProp(name?: string): Function;
+export function BodyProp(name?: string) {
+  return function (target: any, propertyKey: string, value: string | number) {};
+}
+
 /**
  * Inject http request
  */
-export declare function Request(): Function;
+export function Request() {
+  return function (target: any, propertyKey: string, value: string | number) {};
+}
 
 /**
  * Inject value from Path
@@ -44,25 +49,37 @@ export declare function Header(name?: string): Function;
 /**
  * Mark parameter as manually injected, which will not be generated
  */
-export declare function Inject(): Function;
+export function Inject() {
+  return function (target: any, propertyKey: string, value: string | number) {};
+}
+
 /**
  * Inject uploaded file
  *
  * @param {string} [name] The name of the uploaded file parameter
  */
-export declare function UploadedFile(name?: string): Function;
+export function UploadedFile(name?: string) {
+  return function (target: any, propertyKey: string, value: string | number) {};
+}
+
 /**
  * Inject uploaded files
  *
  * @param {string} [name] The name of the uploaded files parameter
  */
-export declare function UploadedFiles(name?: string): Function;
+export function UploadedFiles(name?: string) {
+  return function (target: any, propertyKey: string, value: string | number) {};
+}
+
 /**
  * Inject uploaded files
  *
  * @param {string} [name] The name of the uploaded files parameter
  */
-export declare function FormField(name?: string): Function;
+export function FormField(name?: string) {
+  return function (target: any, propertyKey: string, value: string | number) {};
+}
+
 /**
  * Overrides the default media type of request body.
  * Can be used on specific method.
@@ -70,4 +87,6 @@ export declare function FormField(name?: string): Function;
  *
  * @link https://swagger.io/docs/specification/describing-request-body/
  */
-export declare function Consumes(value: string): Function;
+export function Consumes(value: string) {
+  return function (target: any, propertyKey: string, value: string | number) {};
+}
