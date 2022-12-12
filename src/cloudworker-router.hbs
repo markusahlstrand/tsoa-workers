@@ -245,7 +245,10 @@ function getValidatedArgs(
       const name = args[key].name;
       switch (args[key].in) {
         case "request":
-          return ctx.request;
+          return {
+            ...ctx.request,
+            ctx,
+          };
         case "query":
           return validationService.ValidateParam(
             args[key],
