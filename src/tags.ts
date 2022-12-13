@@ -1,5 +1,3 @@
-export function Tags() {
-  return () => {
-    return;
-  };
+export function Tags(...values: string[]) {
+  return (target: Function) => {};
 }
