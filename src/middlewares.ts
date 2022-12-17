@@ -8,7 +8,7 @@ export function Middlewares(middleware: any) {
   ) => {
     let fn = descriptor.value;
     descriptor.value = async function (...args) {
-      return middleware(this, async () => fn.apply(this, arguments));
+      return middleware(this, async () => fn.apply(this, args));
     };
   };
 }
