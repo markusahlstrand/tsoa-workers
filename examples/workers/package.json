@@ -5,7 +5,7 @@
   "main": "build/src/server.js",
   "scripts": {
     "build": "tsoa spec-and-routes",
-    "dev": "wrangler dev"
+    "dev": "tsoa spec-and-routes & wrangler dev"
   },
   "author": "",
   "license": "ISC",

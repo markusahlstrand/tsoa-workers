@@ -58,6 +58,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
             async function UsersController_getUser(context: any, next: any) {
             const args = {
                     userId: {"in":"path","name":"userId","required":true,"dataType":"double"},
+                    request: {"in":"request","name":"request","required":true,"dataType":"object"},
                     name: {"in":"query","name":"name","dataType":"string"},
             };
 
@@ -159,7 +160,10 @@ function getValidatedArgs(
       const name = args[key].name;
       switch (args[key].in) {
         case "request":
-          return ctx.request;
+          return {
+            ...ctx.request,
+            ctx,
+          };
         case "query":
           return validationService.ValidateParam(
             args[key],

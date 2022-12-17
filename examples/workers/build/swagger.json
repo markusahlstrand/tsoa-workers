@@ -106,6 +106,9 @@
 						}
 					}
 				},
+				"tags": [
+					"users"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -136,6 +139,9 @@
 						"description": "Created"
 					}
 				},
+				"tags": [
+					"users"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {

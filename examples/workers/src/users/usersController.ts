@@ -1,3 +1,5 @@
+import { Context } from 'cloudworker-router';
+import { createContext } from 'vm';
 import {
   Body,
   Controller,
@@ -8,6 +10,7 @@ import {
   Route,
   SuccessResponse,
   Middlewares,
+  Request,
   Tags,
   Next,
 } from '../../../../src';
@@ -20,6 +23,10 @@ async function corsMiddleware(controller: Controller, next: Next) {
   return next();
 }
 
+type RequestWithContext = Request & {
+  ctx: Context;
+};
+
 @Route('users')
 @Tags('users')
 export class UsersController extends Controller {
@@ -27,8 +34,12 @@ export class UsersController extends Controller {
   @Middlewares(corsMiddleware)
   public async getUser(
     @Path() userId: number,
+    @Request() request: RequestWithContext,
     @Query() name?: string,
   ): Promise<User> {
+    // Just do a dummy operation to ensure that the context is passed correctly
+    request.ctx.state.name = name;
+
     return new UsersService().get(userId, name);
   }
 
