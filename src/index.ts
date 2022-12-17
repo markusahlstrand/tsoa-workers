@@ -4,3 +4,4 @@ export * from './methods';
 export * from './route';
 export * from './responses';
 export * from './tags';
+export * from './middlewares';

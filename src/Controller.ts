@@ -1,6 +1,6 @@
 export class Controller {
   private statusCode?: number;
-  private headers: any;
+  private headers: { [key: string]: string } = {};
 
   setStatus(statusCode: number) {
     this.statusCode = statusCode;
