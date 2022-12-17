@@ -1,4 +1,3 @@
-import { Router, Context, Next } from 'cloudworker-router';
 import {
   Body,
   Controller,
@@ -10,6 +9,7 @@ import {
   SuccessResponse,
   Middlewares,
   Tags,
+  Next,
 } from '../../../../src';
 // } from 'tsoa';
 import { User } from './user';

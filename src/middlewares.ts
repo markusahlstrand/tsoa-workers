@@ -1,3 +1,5 @@
+export type Next = () => Promise<Response | undefined>;
+
 export function Middlewares(middleware: any) {
   return (
     target: any,
