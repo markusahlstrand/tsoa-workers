@@ -13,8 +13,8 @@ import {
   Request,
   Tags,
   Next,
-} from '../../../../src';
-// } from 'tsoa';
+// } from '../../../../src';
+} from 'tsoa';
 import { User } from './user';
 import { UsersService, UserCreationParams } from './usersService';
 
@@ -47,6 +47,11 @@ export class UsersController extends Controller {
   @Post()
   public async createUser(
     @Body() requestBody: UserCreationParams,
+    @Example<UserCreationParams>({
+      email: "test@example.com",
+      name: "John Doe",
+      phoneNumbers: 
+    })
   ): Promise<void> {
     this.setStatus(201);
     new UsersService().create(requestBody);
