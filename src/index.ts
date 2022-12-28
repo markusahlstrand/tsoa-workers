@@ -6,6 +6,6 @@ export * from './responses';
 export * from './tags';
 export * from './middlewares';
 export * from './example';
-export * from './operationId';
+export * from './operation-id';
 export * from './security';
 export * from './custom-attribute';
