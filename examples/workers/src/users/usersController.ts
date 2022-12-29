@@ -1,5 +1,4 @@
 import { Context } from 'cloudworker-router';
-import { createContext } from 'vm';
 import {
   Body,
   Controller,
@@ -13,8 +12,10 @@ import {
   Request,
   Tags,
   Next,
-// } from '../../../../src';
-} from 'tsoa';
+  Example,
+  Security,
+} from '../../../../src';
+// } from 'tsoa';
 import { User } from './user';
 import { UsersService, UserCreationParams } from './usersService';
 
@@ -31,6 +32,7 @@ type RequestWithContext = Request & {
 @Tags('users')
 export class UsersController extends Controller {
   @Get('{userId}')
+  @Security('oauth2', ['openid'])
   @Middlewares(corsMiddleware)
   public async getUser(
     @Path() userId: number,
@@ -44,14 +46,14 @@ export class UsersController extends Controller {
   }
 
   @SuccessResponse('201', 'Created') // Custom success response
+  @Example<UserCreationParams>({
+    email: 'test@example.com',
+    name: 'John Doe',
+    phoneNumbers: ['1234'],
+  })
   @Post()
   public async createUser(
     @Body() requestBody: UserCreationParams,
-    @Example<UserCreationParams>({
-      email: "test@example.com",
-      name: "John Doe",
-      phoneNumbers: 
-    })
   ): Promise<void> {
     this.setStatus(201);
     new UsersService().create(requestBody);

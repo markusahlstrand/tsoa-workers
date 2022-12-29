@@ -12,12 +12,26 @@ import {
   fetchMiddlewares,
 } from "@tsoa/runtime";
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { MeController } from './../src/me/meController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { UsersController } from './../src/users/usersController';
+import { authenticationHandler } from './../src/authentication';
+// @ts-ignore - no great way to install types from subpackage
+const promiseAny = require('promise.any');
 import { Router, Handler, ContextWithBody } from "cloudworker-router";
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "Me": {
+        "dataType": "refObject",
+        "properties": {
+            "sub": {"dataType":"double","required":true},
+            "email": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "User": {
         "dataType": "refObject",
         "properties": {
@@ -51,7 +65,33 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
+        router.get('/me',
+            authenticationHandler([{"oauth2":["openid email"]}]),
+            ...(fetchMiddlewares<Handler<Env>>(MeController)),
+            ...(fetchMiddlewares<Handler<Env>>(MeController.prototype.getUser)),
+
+            async function MeController_getUser(context: any, next: any) {
+            const args = {
+                    request: {"in":"request","name":"request","required":true,"dataType":"object"},
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+              validatedArgs = getValidatedArgs(args, context, next);
+            } catch (err: any) {
+                return new Response(JSON.stringify({ fields: err.fields }), {
+                status: err.status || 400,
+                });
+            }
+
+            const controller = new MeController();
+
+            const promise = controller.getUser.apply(controller, validatedArgs as any);
+            return promiseHandler(controller, promise, context, undefined, undefined);
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         router.get('/users/:userId',
+            authenticationHandler([{"oauth2":["openid"]}]),
             ...(fetchMiddlewares<Handler<Env>>(UsersController)),
             ...(fetchMiddlewares<Handler<Env>>(UsersController.prototype.getUser)),
 

@@ -1,6 +1,6 @@
 {
   "name": "tsoa-workers",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A add-on for running tsoa on cloudflare workers",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -33,7 +33,7 @@
   "homepage": "https://github.com/markusahlstrand/tsoa-workers#readme",
   "devDependencies": {
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.4"
   },
   "dependencies": {}
 }

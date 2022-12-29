@@ -6,6 +6,23 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"Me": {
+				"properties": {
+					"sub": {
+						"type": "number",
+						"format": "double"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"sub",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"User": {
 				"properties": {
 					"id": {
@@ -79,7 +96,22 @@
 				"$ref": "#/components/schemas/Pick_User.email-or-name-or-phoneNumbers-or-length_"
 			}
 		},
-		"securitySchemes": {}
+		"securitySchemes": {
+			"oauth2": {
+				"type": "oauth2",
+				"description": "This API uses OAuth 2 with the implicit flow",
+				"flows": {
+					"implicit": {
+						"authorizationUrl": "https://auth.sesamy.dev/authorize",
+						"scopes": {
+							"openid": "Basic user information",
+							"email": "User email",
+							"profile": "User profile information"
+						}
+					}
+				}
+			}
+		}
 	},
 	"info": {
 		"title": "tsoa-jsdom-workers-example",
@@ -91,6 +123,34 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/me": {
+			"get": {
+				"operationId": "GetUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Me"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"me"
+				],
+				"security": [
+					{
+						"oauth2": [
+							"openid email"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
 		"/users/{userId}": {
 			"get": {
 				"operationId": "GetUser",
@@ -109,7 +169,13 @@
 				"tags": [
 					"users"
 				],
-				"security": [],
+				"security": [
+					{
+						"oauth2": [
+							"openid"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
