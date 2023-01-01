@@ -45,7 +45,10 @@ export function Query(name?: string) {
  *
  * @param {string} [name] The name of the header parameter
  */
-export declare function Header(name?: string): Function;
+export function Header(name?: string) {
+  return function (target: any, propertyKey: string, value: string | number) {};
+}
+
 /**
  * Mark parameter as manually injected, which will not be generated
  */

@@ -250,10 +250,10 @@ cliui@^6.0.0:
     strip-ansi "^6.0.0"
     wrap-ansi "^6.2.0"
 
-cloudworker-router@4.0.8:
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/cloudworker-router/-/cloudworker-router-4.0.8.tgz#48a20ec2a810ea69ec59baa9e4a30210fba279d5"
-  integrity sha512-DxbMCH9bKNwMlMhKyxnHf/rFJt4e7KRulu4BCB+P6K5sefwZktrXNpbyIi9pvM9lNNqafekJ3Owi2/L99uQIFQ==
+cloudworker-router@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/cloudworker-router/-/cloudworker-router-4.1.0.tgz#cd16c3a99fae60987bc3baaafb53828d4c5f16d1"
+  integrity sha512-RpzlsSv3FUDCx6r10uOSAtf/yl9jT0GFkBEVjooA+IsdTvaqXw5i5vDvtyWXtKzEzngKQ3CvGGHXbrSs0tnnWA==
   dependencies:
     path-to-regexp "^6.2.1"
 

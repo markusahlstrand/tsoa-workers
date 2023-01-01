@@ -1,19 +1,12 @@
 import { Context } from 'cloudworker-router';
 import {
-  Body,
   Controller,
   Get,
-  Path,
-  Post,
-  Query,
   Route,
-  SuccessResponse,
-  Middlewares,
   Request,
   Tags,
-  Next,
-  Example,
   Security,
+  Header,
 } from '../../../../src';
 
 import { Me } from './me';
@@ -30,7 +23,11 @@ export class MeController extends Controller {
   /**
    * Just passes back the content of the jwt
    */
-  public async getUser(@Request() request: RequestWithContext): Promise<Me> {
+  public async getUser(
+    @Request() request: RequestWithContext,
+    @Header('x-test') testHeader: string,
+  ): Promise<Me> {
+    console.log(testHeader);
     return request.ctx.state.user;
   }
 }

@@ -12,6 +12,8 @@ import {
   fetchMiddlewares,
 } from "@tsoa/runtime";
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { AUthController } from './../src/auth/authController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { MeController } from './../src/me/meController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { UsersController } from './../src/users/usersController';
@@ -65,6 +67,30 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
+        router.post('/auth/login',
+            ...(fetchMiddlewares<Handler<Env>>(AUthController)),
+            ...(fetchMiddlewares<Handler<Env>>(AUthController.prototype.login)),
+
+            async function AUthController_login(context: any, next: any) {
+            const args = {
+                    email: {"in":"formData","name":"email","required":true,"dataType":"string"},
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+              validatedArgs = getValidatedArgs(args, context, next);
+            } catch (err: any) {
+                return new Response(JSON.stringify({ fields: err.fields }), {
+                status: err.status || 400,
+                });
+            }
+
+            const controller = new AUthController();
+
+            const promise = controller.login.apply(controller, validatedArgs as any);
+            return promiseHandler(controller, promise, context, undefined, undefined);
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         router.get('/me',
             authenticationHandler([{"oauth2":["openid email"]}]),
             ...(fetchMiddlewares<Handler<Env>>(MeController)),
@@ -73,6 +99,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
             async function MeController_getUser(context: any, next: any) {
             const args = {
                     request: {"in":"request","name":"request","required":true,"dataType":"object"},
+                    testHeader: {"in":"header","name":"x-test","required":true,"dataType":"string"},
             };
 
             let validatedArgs: any[] = [];

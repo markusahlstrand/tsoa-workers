@@ -79,9 +79,12 @@ export default async function renderOauthRedirectHtml() {
   </body>
   </html>`;
 
-  return new Response(body, {
-    headers: {
-      'content-type': 'text/html',
-    },
-  });
+  return Promise.resolve(
+    new Response(body, {
+      status: 200,
+      headers: {
+        'content-type': 'text/html',
+      },
+    }),
+  );
 }

@@ -1,6 +1,6 @@
 {
   "name": "tsoa-workers",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A add-on for running tsoa on cloudflare workers",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
