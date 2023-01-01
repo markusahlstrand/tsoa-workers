@@ -1,6 +1,4 @@
-import { Controller, Get, Route, Tags, FormField, Post } from '../../../../src';
-
-import { AuthParams } from './auth';
+import { Controller, Route, Tags, FormField, Post } from '../../../../src';
 
 @Route('auth')
 @Tags('auth')

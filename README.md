@@ -14,7 +14,7 @@ The TSOA CLI uses a handlebars template for generating the routes file, so we ju
 
 ## Examples
 
-Check out the examples folder for how to set up a project using tsoa-workers. The only change need compared to vanilla tsoa is just a single lines in the tsoa.json-file to switch the middleware template:
+Check out the examples folder for how to set up a project using tsoa-workers. The only change need compared to vanilla tsoa is just a single line in the `tsoa.json`-file to switch the middleware template:
 
 ```
 {
