@@ -13,7 +13,6 @@ import {
   Tags,
   Next,
   Example,
-  Security,
 } from '../../../../src';
 // } from 'tsoa';
 import { User } from './user';
@@ -32,7 +31,6 @@ type RequestWithContext = Request & {
 @Tags('users')
 export class UsersController extends Controller {
   @Get('{userId}')
-  @Security('oauth2', ['openid'])
   @Middlewares(corsMiddleware)
   public async getUser(
     @Path() userId: number,

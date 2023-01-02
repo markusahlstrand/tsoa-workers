@@ -218,13 +218,7 @@
 				"tags": [
 					"users"
 				],
-				"security": [
-					{
-						"oauth2": [
-							"openid"
-						]
-					}
-				],
+				"security": [],
 				"parameters": [
 					{
 						"in": "path",
