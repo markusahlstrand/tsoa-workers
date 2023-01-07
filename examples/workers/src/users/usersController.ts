@@ -1,4 +1,4 @@
-import { Context } from 'cloudworker-router';
+import { Context, Next } from 'cloudworker-router';
 import {
   Body,
   Controller,
@@ -11,10 +11,9 @@ import {
   Middlewares,
   Request,
   Tags,
-  Next,
   Example,
-} from '../../../../src';
-// } from 'tsoa';
+} from '@tsoa/runtime';
+
 import { User } from './user';
 import { UsersService, UserCreationParams } from './usersService';
 

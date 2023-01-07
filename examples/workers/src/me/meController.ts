@@ -7,7 +7,7 @@ import {
   Tags,
   Security,
   Header,
-} from '../../../../src';
+} from '@tsoa/runtime';
 
 import { Me } from './me';
 
