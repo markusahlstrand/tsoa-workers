@@ -1,4 +1,4 @@
-import { Controller, Route, Tags, FormField, Post } from '../../../../src';
+import { Controller, Route, Tags, FormField, Post } from '@tsoa/runtime';
 
 @Route('auth')
 @Tags('auth')
