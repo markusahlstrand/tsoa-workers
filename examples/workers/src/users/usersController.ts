@@ -30,7 +30,7 @@ type RequestWithContext = Request & {
 @Tags('users')
 export class UsersController extends Controller {
   @Get('{userId}')
-  @Middlewares(corsMiddleware)
+  // @Middlewares(corsMiddleware)
   public async getUser(
     @Path() userId: number,
     @Request() request: RequestWithContext,

@@ -313,8 +313,12 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
     ctx: ContextWithBody<Env>,
     next: () => any,
   ): any[] {
+    console.log('args: ' + JSON.stringify(args));
+
     const errorFields: FieldErrors = {};
     const values = Object.keys(args).map((key) => {
+      console.log('Arg: ' + JSON.stringify(args[key]));
+
       const name = args[key].name;
       switch (args[key].in) {
         case 'request':
@@ -325,7 +329,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
         case 'query':
           return validationService.ValidateParam(
             args[key],
-            ctx.query.get(name),
+            ctx.query.get(name) ?? undefined,
             name,
             errorFields,
             undefined,

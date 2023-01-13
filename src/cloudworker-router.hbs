@@ -189,7 +189,7 @@ function getValidatedArgs(
         case 'query':
           return validationService.ValidateParam(
             args[key],
-            ctx.query.get(name),
+            ctx.query.get(name) ?? undefined,
             name,
             errorFields,
             undefined,
@@ -207,7 +207,7 @@ function getValidatedArgs(
         case 'header':
           return validationService.ValidateParam(
             args[key],
-            ctx.request.headers.get(name),
+            ctx.request.headers.get(name) ?? undefined,
             name,
             errorFields,
             undefined,

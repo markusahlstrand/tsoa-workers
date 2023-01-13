@@ -23,10 +23,7 @@ app.get('/spec', async () => {
 });
 
 app.get('/docs', swaggerUi);
-// app.get('/oauth2-redirect.html', renderOauthRedirectHtml);
-app.get('/oauth2-redirect.html', async () => {
-  return new Response('Hello');
-});
+app.get('/oauth2-redirect.html', renderOauthRedirectHtml);
 
 app.use(bodyparser);
 
