@@ -25,300 +25,175 @@ import { Router, Handler, ContextWithBody } from 'cloudworker-router';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-  Me: {
-    dataType: 'refObject',
-    properties: {
-      sub: { dataType: 'double', required: true },
-      email: { dataType: 'string', required: true },
-    },
-    additionalProperties: false,
-  },
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  User: {
-    dataType: 'refObject',
-    properties: {
-      id: { dataType: 'double', required: true },
-      email: { dataType: 'string', required: true },
-      name: { dataType: 'string', required: true },
-      status: {
-        dataType: 'union',
-        subSchemas: [
-          { dataType: 'enum', enums: ['Happy'] },
-          { dataType: 'enum', enums: ['Sad'] },
-          { dataType: 'enum', enums: ['In the zone'] },
-        ],
-      },
-      phoneNumbers: {
-        dataType: 'array',
-        array: { dataType: 'string' },
-        required: true,
-      },
-      length: { dataType: 'double', validators: { minimum: { value: 5 } } },
-    },
-    additionalProperties: false,
-  },
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  'Pick_User.email-or-name-or-phoneNumbers-or-length_': {
-    dataType: 'refAlias',
-    type: {
-      dataType: 'nestedObjectLiteral',
-      nestedProperties: {
-        email: { dataType: 'string', required: true },
-        name: { dataType: 'string', required: true },
-        phoneNumbers: {
-          dataType: 'array',
-          array: { dataType: 'string' },
-          required: true,
+    'Me': {
+        dataType: 'refObject',
+        properties: {
+            'sub': {"dataType":"double","required":true},
+            'email': {"dataType":"string","required":true},
         },
-        length: { dataType: 'double', validators: { minimum: { value: 5 } } },
-      },
-      validators: {},
+        additionalProperties: false,
     },
-  },
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  UserCreationParams: {
-    dataType: 'refAlias',
-    type: {
-      ref: 'Pick_User.email-or-name-or-phoneNumbers-or-length_',
-      validators: {},
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    'User': {
+        dataType: 'refObject',
+        properties: {
+            'id': {"dataType":"double","required":true},
+            'email': {"dataType":"string","required":true},
+            'name': {"dataType":"string","required":true},
+            'status': {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["Happy"]},{"dataType":"enum","enums":["Sad"]},{"dataType":"enum","enums":["In the zone"]}]},
+            'phoneNumbers': {"dataType":"array","array":{"dataType":"string"},"required":true},
+            'length': {"dataType":"double","validators":{"minimum":{"value":5}}},
+        },
+        additionalProperties: false,
     },
-  },
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    'Pick_User.email-or-name-or-phoneNumbers-or-length_': {
+        dataType: 'refAlias',
+        type: {"dataType":"nestedObjectLiteral","nestedProperties":{"email":{"dataType":"string","required":true},"name":{"dataType":"string","required":true},"phoneNumbers":{"dataType":"array","array":{"dataType":"string"},"required":true},"length":{"dataType":"double","validators":{"minimum":{"value":5}}}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    'UserCreationParams': {
+        dataType: 'refAlias',
+        type: {"ref":"Pick_User.email-or-name-or-phoneNumbers-or-length_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const validationService = new ValidationService(models);
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 export function RegisterRoutes<Env>(router: Router<Env>) {
-  // ###########################################################################################################
-  //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
-  //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
-  // ###########################################################################################################
-  router.post(
-    '/auth/login',
-    ...fetchMiddlewares<Handler<Env>>(AUthController),
-    ...fetchMiddlewares<Handler<Env>>(AUthController.prototype.login),
+    // ###########################################################################################################
+    //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
+    //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
+    // ###########################################################################################################
+        router.post('/auth/login',
+            ...(fetchMiddlewares<Handler<Env>>(AUthController)),
+            ...(fetchMiddlewares<Handler<Env>>(AUthController.prototype.login)),
 
-    async function AUthController_login(context: any, next: any) {
-      const args = {
-        email: {
-          in: 'formData',
-          name: 'email',
-          required: true,
-          dataType: 'string',
-        },
-      };
+            async function AUthController_login(context: any, next: any) {
+            const args = {
+                    email: {"in":"formData","name":"email","required":true,"dataType":"string"},
+            };
 
-      let validatedArgs: any[] = [];
-      try {
-        validatedArgs = getValidatedArgs(args, context, next);
-      } catch (err: any) {
-        return new Response(JSON.stringify({ fields: err.fields }), {
-          status: err.status || 400,
+            let validatedArgs: any[] = [];
+            try {
+              validatedArgs = getValidatedArgs(args, context, next);
+            } catch (err: any) {
+                return new Response(JSON.stringify({ fields: err.fields }), {
+                status: err.status || 400,
+                });
+            }
+
+            const controller = new AUthController();
+
+            const data = await controller.login.apply(
+              controller,
+              validatedArgs as any
+            );
+
+            return handle(controller, data);
         });
-      }
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        router.get('/me',
+            authenticationHandler([{"oauth2":["openid email"]}]),
+            ...(fetchMiddlewares<Handler<Env>>(MeController)),
+            ...(fetchMiddlewares<Handler<Env>>(MeController.prototype.getUser)),
 
-      const controller = new AUthController();
+            async function MeController_getUser(context: any, next: any) {
+            const args = {
+                    request: {"in":"request","name":"request","required":true,"dataType":"object"},
+                    testHeader: {"in":"header","name":"x-test","required":true,"dataType":"string"},
+            };
 
-      const promise = controller.login.apply(controller, validatedArgs as any);
-      return promiseHandler(controller, promise, context, undefined, undefined);
-    },
-  );
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  router.get(
-    '/me',
-    authenticationHandler([{ oauth2: ['openid email'] }]),
-    ...fetchMiddlewares<Handler<Env>>(MeController),
-    ...fetchMiddlewares<Handler<Env>>(MeController.prototype.getUser),
+            let validatedArgs: any[] = [];
+            try {
+              validatedArgs = getValidatedArgs(args, context, next);
+            } catch (err: any) {
+                return new Response(JSON.stringify({ fields: err.fields }), {
+                status: err.status || 400,
+                });
+            }
 
-    async function MeController_getUser(context: any, next: any) {
-      const args = {
-        request: {
-          in: 'request',
-          name: 'request',
-          required: true,
-          dataType: 'object',
-        },
-        testHeader: {
-          in: 'header',
-          name: 'x-test',
-          required: true,
-          dataType: 'string',
-        },
-      };
+            const controller = new MeController();
 
-      let validatedArgs: any[] = [];
-      try {
-        validatedArgs = getValidatedArgs(args, context, next);
-      } catch (err: any) {
-        return new Response(JSON.stringify({ fields: err.fields }), {
-          status: err.status || 400,
+            const data = await controller.getUser.apply(
+              controller,
+              validatedArgs as any
+            );
+
+            return handle(controller, data);
         });
-      }
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        router.get('/users/:userId',
+            ...(fetchMiddlewares<Handler<Env>>(UsersController)),
+            ...(fetchMiddlewares<Handler<Env>>(UsersController.prototype.getUser)),
 
-      const controller = new MeController();
+            async function UsersController_getUser(context: any, next: any) {
+            const args = {
+                    userId: {"in":"path","name":"userId","required":true,"dataType":"double"},
+                    request: {"in":"request","name":"request","required":true,"dataType":"object"},
+                    name: {"in":"query","name":"name","dataType":"string"},
+            };
 
-      const promise = controller.getUser.apply(
-        controller,
-        validatedArgs as any,
-      );
-      return promiseHandler(controller, promise, context, undefined, undefined);
-    },
-  );
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  router.get(
-    '/users/:userId',
-    ...fetchMiddlewares<Handler<Env>>(UsersController),
-    ...fetchMiddlewares<Handler<Env>>(UsersController.prototype.getUser),
+            let validatedArgs: any[] = [];
+            try {
+              validatedArgs = getValidatedArgs(args, context, next);
+            } catch (err: any) {
+                return new Response(JSON.stringify({ fields: err.fields }), {
+                status: err.status || 400,
+                });
+            }
 
-    async function UsersController_getUser(context: any, next: any) {
-      const args = {
-        userId: {
-          in: 'path',
-          name: 'userId',
-          required: true,
-          dataType: 'double',
-        },
-        request: {
-          in: 'request',
-          name: 'request',
-          required: true,
-          dataType: 'object',
-        },
-        name: { in: 'query', name: 'name', dataType: 'string' },
-      };
+            const controller = new UsersController();
 
-      let validatedArgs: any[] = [];
-      try {
-        validatedArgs = getValidatedArgs(args, context, next);
-      } catch (err: any) {
-        return new Response(JSON.stringify({ fields: err.fields }), {
-          status: err.status || 400,
+            const data = await controller.getUser.apply(
+              controller,
+              validatedArgs as any
+            );
+
+            return handle(controller, data);
         });
-      }
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        router.post('/users',
+            ...(fetchMiddlewares<Handler<Env>>(UsersController)),
+            ...(fetchMiddlewares<Handler<Env>>(UsersController.prototype.createUser)),
 
-      const controller = new UsersController();
+            async function UsersController_createUser(context: any, next: any) {
+            const args = {
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"UserCreationParams"},
+            };
 
-      const promise = controller.getUser.apply(
-        controller,
-        validatedArgs as any,
-      );
-      return promiseHandler(controller, promise, context, undefined, undefined);
-    },
-  );
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  router.post(
-    '/users',
-    ...fetchMiddlewares<Handler<Env>>(UsersController),
-    ...fetchMiddlewares<Handler<Env>>(UsersController.prototype.createUser),
+            let validatedArgs: any[] = [];
+            try {
+              validatedArgs = getValidatedArgs(args, context, next);
+            } catch (err: any) {
+                return new Response(JSON.stringify({ fields: err.fields }), {
+                status: err.status || 400,
+                });
+            }
 
-    async function UsersController_createUser(context: any, next: any) {
-      const args = {
-        requestBody: {
-          in: 'body',
-          name: 'requestBody',
-          required: true,
-          ref: 'UserCreationParams',
-        },
-      };
+            const controller = new UsersController();
 
-      let validatedArgs: any[] = [];
-      try {
-        validatedArgs = getValidatedArgs(args, context, next);
-      } catch (err: any) {
-        return new Response(JSON.stringify({ fields: err.fields }), {
-          status: err.status || 400,
+            const data = await controller.createUser.apply(
+              controller,
+              validatedArgs as any
+            );
+
+            return handle(controller, data);
         });
-      }
-
-      const controller = new UsersController();
-
-      const promise = controller.createUser.apply(
-        controller,
-        validatedArgs as any,
-      );
-      return promiseHandler(controller, promise, context, 201, undefined);
-    },
-  );
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-  function isController(object: any): object is Controller {
-    return (
-      'getHeaders' in object && 'getStatus' in object && 'setStatus' in object
-    );
-  }
-
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-  function promiseHandler(
-    controllerObj: any,
-    promise: Promise<any>,
-    context: any,
-    successStatus: any,
-    next?: () => Promise<any>,
-  ) {
-    return Promise.resolve(promise)
-      .then((data: any) => {
-        let statusCode = successStatus;
-        let headers;
-
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-        if (isController(controllerObj)) {
-          headers = controllerObj.getHeaders();
-          statusCode = controllerObj.getStatus() || statusCode;
-        }
-        return returnHandler(context, next, statusCode, data, headers);
-      })
-      .catch((error: any) => {
-        return new Response(error.message, {
-          status: error.status || 500,
-        });
-      });
-  }
 
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-  function returnHandler(
-    context: any,
-    next?: () => any,
-    statusCode?: number,
-    data?: any,
-    headers: any = {},
-  ) {
-    if (data !== null && data !== undefined) {
-      headers['content-type'] =
-        headers['content-type'] || typeof data === 'object'
-          ? 'application/json'
-          : 'text/plain';
-
-      return new Response(JSON.stringify(data), {
-        headers,
-        status: statusCode || 200,
-      });
-    }
-
-    return new Response(null, {
-      headers,
-      status: statusCode || 204,
-    });
-  }
-
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-  function getValidatedArgs(
+function getValidatedArgs(
     args: any,
     ctx: ContextWithBody<Env>,
-    next: () => any,
+    next: () => any
   ): any[] {
-    console.log('args: ' + JSON.stringify(args));
-
     const errorFields: FieldErrors = {};
     const values = Object.keys(args).map((key) => {
-      console.log('Arg: ' + JSON.stringify(args[key]));
-
       const name = args[key].name;
       switch (args[key].in) {
         case 'request':
@@ -333,7 +208,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
             name,
             errorFields,
             undefined,
-            { noImplicitAdditionalProperties: 'throw-on-extras' },
+            { noImplicitAdditionalProperties: 'throw-on-extras' }
           );
         case 'path':
           return validationService.ValidateParam(
@@ -342,16 +217,16 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
             name,
             errorFields,
             undefined,
-            { noImplicitAdditionalProperties: 'throw-on-extras' },
+            { noImplicitAdditionalProperties: 'throw-on-extras' }
           );
         case 'header':
           return validationService.ValidateParam(
             args[key],
-            ctx.request.headers.get(name),
+            ctx.request.headers.get(name) ?? undefined,
             name,
             errorFields,
             undefined,
-            { noImplicitAdditionalProperties: 'throw-on-extras' },
+            { noImplicitAdditionalProperties: 'throw-on-extras' }
           );
         case 'body':
           return validationService.ValidateParam(
@@ -360,7 +235,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
             name,
             errorFields,
             undefined,
-            { noImplicitAdditionalProperties: 'throw-on-extras' },
+            { noImplicitAdditionalProperties: 'throw-on-extras' }
           );
         case 'body-prop':
           return validationService.ValidateParam(
@@ -369,7 +244,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
             name,
             errorFields,
             'body.',
-            { noImplicitAdditionalProperties: 'throw-on-extras' },
+            { noImplicitAdditionalProperties: 'throw-on-extras' }
           );
         case 'formData':
           if (args[key].dataType === 'file') {
@@ -379,7 +254,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
               name,
               errorFields,
               undefined,
-              { noImplicitAdditionalProperties: 'throw-on-extras' },
+              { noImplicitAdditionalProperties: 'throw-on-extras' }
             );
           } else if (
             args[key].dataType === 'array' &&
@@ -391,7 +266,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
               name,
               errorFields,
               undefined,
-              { noImplicitAdditionalProperties: 'throw-on-extras' },
+              { noImplicitAdditionalProperties: 'throw-on-extras' }
             );
           } else {
             return validationService.ValidateParam(
@@ -400,7 +275,7 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
               name,
               errorFields,
               undefined,
-              { noImplicitAdditionalProperties: 'throw-on-extras' },
+              { noImplicitAdditionalProperties: 'throw-on-extras' }
             );
           }
         case 'res':
@@ -425,6 +300,42 @@ export function RegisterRoutes<Env>(router: Router<Env>) {
   }
 
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-}
 
+  function handle(
+    controller: Controller,
+    data: string | object | void,
+  ): Response {
+    const headers = controller.getHeaders() as HeadersInit;
+    const statusCode = controller.getStatus();
+
+    return returnHandler(controller, null, statusCode, data, headers);
+  }
+
+  function returnHandler(context: any, next?: () => any, statusCode?: number, data?: any, headers: any={}) : Response {      
+    if (typeof data === "string") {
+      headers["content-type"] = headers["content-type"] || "text/plain";
+
+      return new Response(data, {
+        headers,
+        status: statusCode || 200,
+      });
+    }
+
+    if (typeof data === "object") {
+      headers["content-type"] = headers["content-type"] || "text/plain";
+
+      return new Response(JSON.stringify(data), {
+        headers,
+        status: statusCode || 200,
+      });
+    }
+
+    return new Response(null, {
+      headers,
+      status: statusCode || 204,
+    });
+
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  }
+}
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
