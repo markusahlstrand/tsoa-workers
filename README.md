@@ -21,7 +21,8 @@ Check out the examples folder for how to set up a project using tsoa-workers. Th
   },
   "routes": {
     "routesDir": "build",
-    "middlewareTemplate": "../../src/cloudworker-router.hbs"
+    "middlewareTemplate": "node_modules/tsoa-workers/cloudworker-router.hbs"
+
   }
 }
 ```

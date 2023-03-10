@@ -245,12 +245,12 @@ function getValidatedArgs(
 
   function handle(
     controller: Controller,
-    data: string | object | void,
+    data: string | object | number | void,
   ): Response {
     const headers = controller.getHeaders() as HeadersInit;
     const statusCode = controller.getStatus();
 
-    return returnHandler(controller, null, statusCode, data, headers);
+    return returnHandler(controller, undefined, statusCode, data, headers);
   }
 
   function returnHandler(context: any, next?: () => any, statusCode?: number, data?: any, headers: any={}) : Response {      
