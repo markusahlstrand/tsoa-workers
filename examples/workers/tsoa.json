@@ -25,6 +25,6 @@
   "routes": {
     "authenticationModule": "./src/authentication.ts",
     "routesDir": "build",
-    "middlewareTemplate": "../../src/cloudworker-router.hbs"
+    "middlewareTemplate": "../../cloudworker-router.hbs"
   }
 }
