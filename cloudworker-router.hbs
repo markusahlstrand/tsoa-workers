@@ -264,7 +264,7 @@ function getValidatedArgs(
     }
 
     if (typeof data === "object") {
-      headers["content-type"] = headers["content-type"] || "text/plain";
+      headers["content-type"] = headers["content-type"] || "application/json";
 
       return new Response(JSON.stringify(data), {
         headers,
