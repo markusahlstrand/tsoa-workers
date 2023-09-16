@@ -3,6 +3,7 @@ import {
   Delete,
   Get,
   Post,
+  Path,
   Body,
   Patch,
   Put,
@@ -14,6 +15,11 @@ export class BasicController extends Controller {
   @Get('')
   public async basicGet() {
     return 'OK';
+  }
+
+  @Get('{id}')
+  public async basicGetWithParam(@Path('id') id: string) {
+    return id;
   }
 
   @Post('')

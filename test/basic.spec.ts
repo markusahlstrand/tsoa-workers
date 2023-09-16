@@ -83,4 +83,14 @@ describe('routes', () => {
       expect(response.status).toBe(200);
     });
   });
+
+  describe('path parameters', () => {
+    it('should fetch a string from the path', async () => {
+      const response = await worker.fetch('/basic/test');
+
+      const body = await response.text();
+      expect(body).toBe('test');
+      expect(response.status).toBe(200);
+    });
+  });
 });

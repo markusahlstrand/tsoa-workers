@@ -144,7 +144,7 @@ async function getValidatedArgs(
         case 'path':
           return validationService.ValidateParam(
             args[key],
-            ctx.params[name],
+            ctx.req.param(name),
             name,
             errorFields,
             undefined,
