@@ -7,6 +7,7 @@
     "cloudworker-router.hbs"
   ],
   "scripts": {
+    "build": "tsoa spec-and-routes",
     "test": "jest --config jest.config.js --verbose"
   },
   "repository": {

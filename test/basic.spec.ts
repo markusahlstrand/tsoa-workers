@@ -44,5 +44,43 @@ describe('routes', () => {
       expect(body).toBe('test');
       expect(response.status).toBe(200);
     });
+
+    it('should should return the body from a put request', async () => {
+      const response = await worker.fetch('/basic', {
+        method: 'PUT',
+        body: 'test',
+        headers: {
+          'content-type': 'text/plain',
+        },
+      });
+
+      const body = await response.text();
+      expect(body).toBe('test');
+      expect(response.status).toBe(200);
+    });
+
+    it('should should return the body from a patch request', async () => {
+      const response = await worker.fetch('/basic', {
+        method: 'PATCH',
+        body: 'test',
+        headers: {
+          'content-type': 'text/plain',
+        },
+      });
+
+      const body = await response.text();
+      expect(body).toBe('test');
+      expect(response.status).toBe(200);
+    });
+
+    it('should should return a string from a delete request', async () => {
+      const response = await worker.fetch('/basic', {
+        method: 'DELETE',
+      });
+
+      const body = await response.text();
+      expect(body).toBe('OK');
+      expect(response.status).toBe(200);
+    });
   });
 });
