@@ -26,10 +26,23 @@ describe('routes', () => {
     it('should should return get request', async () => {
       const response = await worker.fetch('/basic');
 
-      expect(response.status).toBe(200);
-
       const body = await response.text();
       expect(body).toBe('OK');
+      expect(response.status).toBe(200);
+    });
+
+    it('should should return the body from a post request', async () => {
+      const response = await worker.fetch('/basic', {
+        method: 'POST',
+        body: 'test',
+        headers: {
+          'content-type': 'text/plain',
+        },
+      });
+
+      const body = await response.text();
+      expect(body).toBe('test');
+      expect(response.status).toBe(200);
     });
   });
 });
