@@ -1,7 +1,7 @@
 {
-  "entryFile": "src/server.ts",
+  "entryFile": "test/app.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
-  "controllerPathGlobs": ["src/**/*Controller.ts"],
+  "controllerPathGlobs": ["test/controllers/*.ts"],
   "spec": {
     "outputDirectory": "build",
     "specVersion": 3,
@@ -23,8 +23,7 @@
     }
   },
   "routes": {
-    "authenticationModule": "./src/authentication.ts",
-    "routesDir": "build",
-    "middlewareTemplate": "../../cloudworker-router.hbs"
+    "routesDir": "test/build",
+    "middlewareTemplate": "cloudworker-router.hbs"
   }
 }

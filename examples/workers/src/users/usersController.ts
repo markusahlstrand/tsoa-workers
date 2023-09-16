@@ -1,4 +1,4 @@
-import { Context, Next } from 'cloudworker-router';
+import { Context, Next } from 'hono';
 import {
   Body,
   Controller,
@@ -17,10 +17,10 @@ import {
 import { User } from './user';
 import { UsersService, UserCreationParams } from './usersService';
 
-async function corsMiddleware(controller: Controller, next: Next) {
-  controller.setHeader('access-control-allow-origin', '*');
-  return next();
-}
+// async function corsMiddleware(controller: Controller, next: Next) {
+//   controller.setHeader('access-control-allow-origin', '*');
+//   return next();
+// }
 
 type RequestWithContext = Request & {
   ctx: Context;
@@ -36,9 +36,9 @@ export class UsersController extends Controller {
     @Request() request: RequestWithContext,
     @Query() name?: string,
   ): Promise<User> {
+    const { ctx } = request;
     // Just do a dummy operation to ensure that the context is passed correctly
-    request.ctx.state.name = name;
-
+    ctx.set('name', name)
     return new UsersService().get(userId, name);
   }
 
