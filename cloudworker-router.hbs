@@ -124,7 +124,7 @@ async function getValidatedArgs(
     ctx,    
   ) {
     const errorFields: FieldErrors = {};
-    const values = Object.keys(args).map(async (key) => {
+    const values = await Promise.all(Object.keys(args).map(async (key) => {
       const name = args[key].name;
       switch (args[key].in) {
         case 'request':
@@ -135,7 +135,7 @@ async function getValidatedArgs(
         case 'query':
           return validationService.ValidateParam(
             args[key],
-            ctx.query.get(name) ?? undefined,
+            ctx.req.query(name),
             name,
             errorFields,
             undefined,
@@ -212,7 +212,7 @@ async function getValidatedArgs(
         {{!-- case 'res':
           return responder(ctx, next); --}}
       }
-    });
+    }));
     if (Object.keys(errorFields).length > 0) {
       throw new ValidateError(errorFields, '');
     }

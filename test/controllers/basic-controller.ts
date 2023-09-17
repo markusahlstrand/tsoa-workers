@@ -7,6 +7,7 @@ import {
   Body,
   Patch,
   Put,
+  Query,
   Route,
 } from '@tsoa/runtime';
 
@@ -17,9 +18,14 @@ export class BasicController extends Controller {
     return 'OK';
   }
 
-  @Get('{id}')
+  @Get('param/{id}')
   public async basicGetWithParam(@Path('id') id: string) {
     return id;
+  }
+
+  @Get('query')
+  public async basicGetWithQuery(@Query('foo') foo?: string) {
+    return foo || 'No foo';
   }
 
   @Post('')

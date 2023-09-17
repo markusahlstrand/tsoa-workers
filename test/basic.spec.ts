@@ -86,10 +86,28 @@ describe('routes', () => {
 
   describe('path parameters', () => {
     it('should fetch a string from the path', async () => {
-      const response = await worker.fetch('/basic/test');
+      const response = await worker.fetch('/basic/param/test');
 
       const body = await response.text();
       expect(body).toBe('test');
+      expect(response.status).toBe(200);
+    });
+  });
+
+  describe('query parameters', () => {
+    it('should fetch a string from the querystring', async () => {
+      const response = await worker.fetch('/basic/query?foo=bar');
+
+      const body = await response.text();
+      expect(body).toBe('bar');
+      expect(response.status).toBe(200);
+    });
+
+    it('should return undefined fo a non exisitng querystring', async () => {
+      const response = await worker.fetch('/basic/query');
+
+      const body = await response.text();
+      expect(body).toBe('No foo');
       expect(response.status).toBe(200);
     });
   });
