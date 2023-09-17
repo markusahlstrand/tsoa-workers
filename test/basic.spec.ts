@@ -111,4 +111,26 @@ describe('routes', () => {
       expect(response.status).toBe(200);
     });
   });
+
+  describe('headers', () => {
+    it('should fetch a string from the querystring', async () => {
+      const response = await worker.fetch('/basic/header', {
+        headers: {
+          foo: 'bar',
+        },
+      });
+
+      const body = await response.text();
+      expect(body).toBe('bar');
+      expect(response.status).toBe(200);
+    });
+
+    it('should return undefined fo a non exisitng header', async () => {
+      const response = await worker.fetch('/basic/header');
+
+      const body = await response.text();
+      expect(body).toBe('No foo');
+      expect(response.status).toBe(200);
+    });
+  });
 });

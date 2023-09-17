@@ -2,6 +2,7 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   Post,
   Path,
   Body,
@@ -25,6 +26,11 @@ export class BasicController extends Controller {
 
   @Get('query')
   public async basicGetWithQuery(@Query('foo') foo?: string) {
+    return foo || 'No foo';
+  }
+
+  @Get('header')
+  public async basicGetWithHeader(@Header('foo') foo?: string) {
     return foo || 'No foo';
   }
 
