@@ -153,5 +153,26 @@ describe('routes', () => {
 
       expect(response.status).toBe(200);
     });
+
+    it('should pass x-www-form-urlencoded as body', async () => {
+      const fooBody = {
+        foo: 'bar',
+      };
+
+      const params = new URLSearchParams(fooBody);
+
+      const response = await worker.fetch('/basic/www-form-body', {
+        method: 'POST',
+        body: params.toString(),
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+      });
+
+      const body = await response.json();
+      expect(body).toEqual(fooBody);
+
+      expect(response.status).toBe(200);
+    });
   });
 });

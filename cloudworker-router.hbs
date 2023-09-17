@@ -132,6 +132,10 @@ async function getBody(ctx: Context) {
     return ctx.req.json();
   }
 
+  if (contentType.startsWith('application/x-www-form-urlencoded')) {
+    return ctx.req.parseBody();
+  }
+
   return ctx.req.text();
 }
 

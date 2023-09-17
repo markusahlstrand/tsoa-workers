@@ -62,4 +62,9 @@ export class BasicController extends Controller {
   public async basicPostWithJsonBody(@Body() foo: FooBody) {
     return foo;
   }
+
+  @Post('www-form-body')
+  public async basicPostWithWwwFormBody(@Body() foo: FooBody) {
+    return foo;
+  }
 }
