@@ -12,6 +12,10 @@ import {
   Route,
 } from '@tsoa/runtime';
 
+interface FooBody {
+  foo: string;
+}
+
 @Route('basic')
 export class BasicController extends Controller {
   @Get('')
@@ -52,5 +56,10 @@ export class BasicController extends Controller {
   @Delete('')
   public async basicDelete() {
     return 'OK';
+  }
+
+  @Post('json-body')
+  public async basicPostWithJsonBody(@Body() foo: FooBody) {
+    return foo;
   }
 }

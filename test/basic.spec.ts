@@ -133,4 +133,25 @@ describe('routes', () => {
       expect(response.status).toBe(200);
     });
   });
+
+  describe('body', () => {
+    it('should pass json as body', async () => {
+      const fooBody = {
+        foo: 'bar',
+      };
+
+      const response = await worker.fetch('/basic/json-body', {
+        method: 'POST',
+        body: JSON.stringify(fooBody),
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
+
+      const body = await response.json();
+      expect(body).toEqual(fooBody);
+
+      expect(response.status).toBe(200);
+    });
+  });
 });

@@ -110,13 +110,29 @@ export function RegisterRoutes(router: Hono) {
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 function returnHandler(
-    ctx: Context,
-    controller: Controller,
-    data?: string | object,
-  ) {  
-  if (typeof data === 'string') {        
+  ctx: Context,
+  controller: Controller,
+  data?: string | object,
+) {
+  if (typeof data === 'string') {
     return ctx.text(data);
   }
+
+  if (typeof data === 'object') {
+    return ctx.json(data);
+  }
+
+  throw new Error(`Unsupported return type ${typeof data === 'object'}`);
+}
+
+async function getBody(ctx: Context) {
+  const contentType = ctx.req.header('content-type')?.toLowerCase() || '';
+
+  if (contentType.startsWith('application/json')) {
+    return ctx.req.json();
+  }
+
+  return ctx.req.text();
 }
 
 async function getValidatedArgs(
@@ -162,7 +178,7 @@ async function getValidatedArgs(
         case 'body':
           return validationService.ValidateParam(
             args[key],
-            await ctx.req.text(),
+            await getBody(ctx),
             name,
             errorFields,
             undefined,
