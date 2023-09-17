@@ -132,7 +132,7 @@ async function getBody(ctx: Context) {
     return ctx.req.json();
   }
 
-  if (contentType.startsWith('application/x-www-form-urlencoded')) {
+  if (contentType.startsWith('application/x-www-form-urlencoded') || contentType.startsWith('multipart/form-data')) {
     return ctx.req.parseBody();
   }
 
