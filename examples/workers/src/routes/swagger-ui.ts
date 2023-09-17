@@ -1,5 +1,6 @@
-import { Context } from "cloudworker-router";
-import { Env } from "../models/Env";
+// import { Context } from "cloudworker-router";
+import { Context } from "hono";
+import { Bindings, Env } from "../models/Env";
 
 function getSwaggerHtml() {
   return `<!-- HTML for static distribution bundle build -->
@@ -66,10 +67,12 @@ function getSwaggerHtml() {
 </html>`;
 }
 
-export default async function swaggerUi(ctx: Context<Env>) {
-  return new Response(getSwaggerHtml(), {
-    headers: {
-      "content-type": "text/html",
-    },
-  });
+export default async function swaggerUi(ctx: Context) {
+  return ctx.html(getSwaggerHtml());
+
+  // return new Response(getSwaggerHtml(), {
+  //   headers: {
+  //     "content-type": "text/html",
+  //   },
+  // });
 }

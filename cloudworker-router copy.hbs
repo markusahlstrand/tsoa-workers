@@ -1,3 +1,5 @@
+/* tslint:disable */
+/* eslint-disable */
 // WARNING: This file was auto-generated with tsoa for jsdom. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 {{#if canImportByAlias}}
 import {
@@ -67,14 +69,27 @@ const validationService = new ValidationService(models);
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-export function RegisterRoutes(router: Hono) {
+export function RegisterRoutes<Env>(router: Hono<Env>) {
     // ###########################################################################################################
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
     {{#each controllers}}
     {{#each actions}}
-        router.{{method}}('{{fullPath}}', async (ctx: Context, next: any) => {
+        router.{{method}}('{{fullPath}}',
+            {{#if security.length}}
+            authenticationHandler({{json security}}),
+            {{/if}}
+            {{#if uploadFile}}
+            upload.single('{{uploadFileName}}'),
+            {{/if}}
+            {{#if uploadFiles}}
+            upload.array('{{uploadFilesName}}'),
+            {{/if}}
+            ...(fetchMiddlewares<Handler<Env>>({{../name}})),
+            ...(fetchMiddlewares<Handler<Env>>({{../name}}.prototype.{{name}})),
+
+            async function {{../name}}_{{name}}(context: Context, next: any) {
             const args = {
                 {{#each parameters}}
                     {{@key}}: {{{json this}}},
@@ -82,11 +97,10 @@ export function RegisterRoutes(router: Hono) {
             };
 
             let validatedArgs: any[] = [];
-            
             try {
-              validatedArgs = await getValidatedArgs(args, ctx);
+              validatedArgs = getValidatedArgs(args, context, next);
             } catch (err: any) {
-                return ctx.json({ fields: err.fields }, err.status || 400);
+                return context.json{ fields: err.fields }), err.status || 400);
             }
 
             {{#if ../../iocModule}}
@@ -100,51 +114,27 @@ export function RegisterRoutes(router: Hono) {
             const controller = new {{../name}}();
             {{/if}}
 
-            const result = await controller.{{name}}.apply(controller, validatedArgs);
+            const data = await controller.{{name}}.apply(
+              controller,
+              validatedArgs as any
+            );
 
-            return returnHandler(ctx, controller, result);
+            return handle(controller, data);
         });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     {{/each}}
     {{/each}}
-}
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-function returnHandler(
-  ctx: Context,
-  controller: Controller,
-  data?: string | object,
-) {
-  if (typeof data === 'string') {
-    return ctx.text(data);
-  }
 
-  if (typeof data === 'object') {
-    return ctx.json(data);
-  }
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-  throw new Error(`Unsupported return type ${typeof data === 'object'}`);
-}
-
-async function getBody(ctx: Context) {
-  const contentType = ctx.req.header('content-type')?.toLowerCase() || '';
-
-  if (contentType.startsWith('application/json')) {
-    return ctx.req.json();
-  }
-
-  if (contentType.startsWith('application/x-www-form-urlencoded') || contentType.startsWith('multipart/form-data')) {
-    return ctx.req.parseBody();
-  }
-
-  return ctx.req.text();
-}
-
-async function getValidatedArgs(
+function getValidatedArgs(
     args: any,
-    ctx,    
-  ) {
+    ctx,
+    next: () => any
+  ): any[] {
     const errorFields: FieldErrors = {};
-    const values = await Promise.all(Object.keys(args).map(async (key) => {
+    const values = Object.keys(args).map((key) => {
       const name = args[key].name;
       switch (args[key].in) {
         case 'request':
@@ -155,7 +145,7 @@ async function getValidatedArgs(
         case 'query':
           return validationService.ValidateParam(
             args[key],
-            ctx.req.query(name),
+            ctx.query.get(name) ?? undefined,
             name,
             errorFields,
             undefined,
@@ -164,7 +154,7 @@ async function getValidatedArgs(
         case 'path':
           return validationService.ValidateParam(
             args[key],
-            ctx.req.param(name),
+            ctx.params[name],
             name,
             errorFields,
             undefined,
@@ -173,7 +163,7 @@ async function getValidatedArgs(
         case 'header':
           return validationService.ValidateParam(
             args[key],
-            ctx.req.headers.get(name) ?? undefined,
+            ctx.request.headers.get(name) ?? undefined,
             name,
             errorFields,
             undefined,
@@ -182,7 +172,7 @@ async function getValidatedArgs(
         case 'body':
           return validationService.ValidateParam(
             args[key],
-            await getBody(ctx),
+            ctx.body,
             name,
             errorFields,
             undefined,
@@ -229,12 +219,64 @@ async function getValidatedArgs(
               { noImplicitAdditionalProperties: 'throw-on-extras' }
             );
           }
-        {{!-- case 'res':
-          return responder(ctx, next); --}}
+        case 'res':
+          return responder(ctx, next);
       }
-    }));
+    });
     if (Object.keys(errorFields).length > 0) {
       throw new ValidateError(errorFields, '');
     }
     return values;
   }
+
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+  function responder(
+    context: any,
+    next: () => any,
+  ): TsoaResponse<HttpStatusCodeLiteral, unknown> {
+    return function (status, data, headers) {
+      returnHandler(context, next, status, data, headers);
+    };
+  }
+
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+  function handle(
+    controller: Controller,
+    data: string | object | number | void,
+  ): Response {
+    const headers = controller.getHeaders() as HeadersInit;
+    const statusCode = controller.getStatus();
+
+    return returnHandler(controller, undefined, statusCode, data, headers);
+  }
+
+  function returnHandler(context: any, next?: () => any, statusCode?: number, data?: any, headers: any={}) : Response {      
+    if (typeof data === "string") {
+      headers["content-type"] = headers["content-type"] || "text/plain";
+
+      return new Response(data, {
+        headers,
+        status: statusCode || 200,
+      });
+    }
+
+    if (typeof data === "object") {
+      headers["content-type"] = headers["content-type"] || "application/json";
+
+      return new Response(JSON.stringify(data), {
+        headers,
+        status: statusCode || 200,
+      });
+    }
+
+    return new Response(null, {
+      headers,
+      status: statusCode || 204,
+    });
+
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  }
+}
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
